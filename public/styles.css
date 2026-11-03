@@ -9,3 +9,5 @@ main{max-width:1050px;margin:auto;padding:0 24px}.hero{text-align:center;padding
 @media(max-width:700px){.hero{padding:75px 0 60px}h1{letter-spacing:-2px}.cards{grid-template-columns:1fr}.section-head{align-items:start;gap:15px;flex-direction:column}.profile{align-items:flex-start;flex-wrap:wrap}.tag{margin-left:0}.topbar{height:65px}nav{gap:15px}}
 
 .profile-copy{flex:1;min-width:220px}.suggest-link{display:inline-block;margin-top:14px;color:#c7c0ff;font-weight:700;text-decoration:none;border:1px solid #51478f;border-radius:10px;padding:9px 13px}.suggest-link:hover{background:#8b7cff20;color:white}
+
+.card-action{display:inline-block;margin-top:18px;padding:9px 12px;border-radius:10px;background:#8b7cff;color:#fff;text-decoration:none;font-size:13px;font-weight:700}.card-action:hover{filter:brightness(1.12)}

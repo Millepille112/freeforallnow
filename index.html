@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="FreeForAllNow – upptäck, sök och dela idéer.">
+  <meta name="description" content="FreeForAllNow – upptäck, sök och dela idéer i en trygg community.">
   <title>FreeForAllNow</title>
   <link rel="stylesheet" href="./public/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="./">FreeForAll<span>Now</span></a>
-    <nav><a href="#explore">Utforska</a><a href="#profile">Profil</a></nav>
+    <nav><a href="#explore">Utforska</a><a href="#account">Konto</a><a href="#community">Community</a></nav>
   </header>
   <main>
     <section class="hero">
       <p class="eyebrow">DIN ÖPPNA MÖTESPLATS</p>
       <h1>Hitta det du<br><span>letar efter.</span></h1>
-      <p class="intro">Sök bland idéer, upptäck nya saker och hjälp oss bygga FreeForAllNow.</p>
+      <p class="intro">Sök bland idéer, upptäck nya saker och träffa communityn.</p>
       <div class="searchbar">
         <input id="search" type="search" placeholder="Sök efter något..." aria-label="Sök">
         <button id="searchBtn">Sök</button>
@@ -25,27 +26,58 @@
     <section id="explore" class="section">
       <div class="section-head"><div><p class="eyebrow">UPPTÄCK</p><h2>Utforska</h2></div>
         <select id="category" aria-label="Välj kategori">
-          <option value="all">Alla kategorier</option>
-          <option value="community">Community</option>
-          <option value="tools">Verktyg</option>
-          <option value="guides">Guider</option>
+          <option value="all">Alla kategorier</option><option value="community">Community</option>
+          <option value="tools">Verktyg</option><option value="guides">Guider</option>
         </select>
       </div>
       <div id="results" class="cards" aria-live="polite"></div>
       <p id="empty" class="empty" hidden>Inga resultat hittades. Prova ett annat sökord.</p>
     </section>
-    <section id="profile" class="profile">
-      <div class="avatar">F</div>
-      <div class="profile-copy">
-        <p class="eyebrow">VAR MED OCH BYGG</p>
-        <h2>Din plats på FreeForAllNow</h2>
-        <p>Du kan utforska sidan utan konto redan nu. Säker inloggning och privat chatt är inte aktiverade ännu.</p>
-        <a class="suggest-link" href="https://github.com/Millepille112/freeforallnow/issues/new?title=Id%C3%A9%20till%20FreeForAllNow" target="_blank" rel="noopener noreferrer">Föreslå en funktion ↗</a>
+
+    <section id="account" class="panel">
+      <div class="section-title"><p class="eyebrow">DITT KONTO</p><h2>Registrera dig eller logga in</h2>
+        <p class="muted">Skapa ett konto för att skriva i communityn. Använd ett smeknamn – dela inte privat information.</p></div>
+      <div id="authForms" class="auth-grid">
+        <form id="signupForm" class="form-card">
+          <h3>Skapa konto</h3>
+          <label>Smeknamn<input id="signupName" required minlength="3" maxlength="24" autocomplete="username" placeholder="Ditt smeknamn"></label>
+          <label>E-post<input id="signupEmail" required type="email" autocomplete="email" placeholder="du@exempel.se"></label>
+          <label>Lösenord<input id="signupPassword" required type="password" minlength="8" autocomplete="new-password" placeholder="Minst 8 tecken"></label>
+          <button type="submit">Skapa konto</button>
+        </form>
+        <form id="loginForm" class="form-card">
+          <h3>Logga in</h3>
+          <label>E-post<input id="loginEmail" required type="email" autocomplete="email"></label>
+          <label>Lösenord<input id="loginPassword" required type="password" autocomplete="current-password"></label>
+          <button type="submit">Logga in</button>
+        </form>
       </div>
-      <span class="tag">Öppen beta</span>
+      <div id="signedIn" class="signed-in" hidden>
+        <div><p class="eyebrow">INLOGGAD</p><h3 id="welcomeName">Hej!</h3><p class="muted">Du kan nu skriva i communityn.</p></div>
+        <form id="profileForm" class="profile-edit">
+          <label>Visningsnamn<input id="displayName" maxlength="40" required></label>
+          <label>Om mig (valfritt)<input id="bio" maxlength="240"></label>
+          <button type="submit">Spara profil</button>
+        </form>
+        <button id="logoutBtn" class="secondary" type="button">Logga ut</button>
+      </div>
+      <p id="authStatus" class="status" role="status"></p>
+    </section>
+
+    <section id="community" class="panel">
+      <div class="section-title"><p class="eyebrow">SÄG HEJ</p><h2>Community-chatten</h2>
+        <p class="muted">En gemensam chatt för alla inloggade. Håll en schysst ton och dela aldrig adress, telefonnummer eller lösenord.</p></div>
+      <form id="messageForm" class="message-form">
+        <label class="sr-only" for="messageInput">Skriv ett meddelande</label>
+        <input id="messageInput" maxlength="1000" placeholder="Skriv ett meddelande..." disabled>
+        <button id="sendBtn" disabled>Skicka</button>
+      </form>
+      <p id="chatStatus" class="status" role="status">Logga in för att skriva. Alla kan läsa chatten.</p>
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <div id="adminNotice" class="admin-notice" hidden>Administratörsläge är aktivt: du kan ta bort meddelanden och blockera konton.</div>
     </section>
   </main>
-  <footer>© <span id="year"></span> FreeForAllNow</footer>
+  <footer>© <span id="year"></span> FreeForAllNow · Var schysst mot varandra.</footer>
   <script src="./public/app.js"></script>
 </body>
 </html>

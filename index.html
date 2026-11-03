@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FreeForAllNow – upptäck och hitta innehåll.">
+  <title>FreeForAllNow</title>
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">FreeForAll<span>Now</span></a>
+    <nav><a href="#explore">Utforska</a><a href="#profile">Profil</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">VÄLKOMMEN</p>
+      <h1>Hitta det du<br><span>letar efter.</span></h1>
+      <p class="intro">Sök, upptäck och utforska på ett enkelt ställe.</p>
+      <div class="searchbar">
+        <input id="search" type="search" placeholder="Sök efter något..." aria-label="Sök">
+        <button id="searchBtn">Sök</button>
+      </div>
+    </section>
+    <section id="explore" class="section">
+      <div class="section-head"><div><p class="eyebrow">UPPTÄCK</p><h2>Utforska</h2></div>
+        <select id="category" aria-label="Välj kategori">
+          <option value="all">Alla kategorier</option>
+          <option value="community">Community</option>
+          <option value="tools">Verktyg</option>
+          <option value="guides">Guider</option>
+        </select>
+      </div>
+      <div id="results" class="cards" aria-live="polite"></div>
+      <p id="empty" class="empty" hidden>Inga resultat hittades. Prova ett annat sökord.</p>
+    </section>
+    <section id="profile" class="profile">
+      <div class="avatar">F</div><div><p class="eyebrow">DIN PLATS</p><h2>Din profil</h2>
+      <p>Profilfunktioner kan kopplas till ett säkert inloggningssystem senare.</p></div>
+      <span class="tag">Kommer snart</span>
+    </section>
+  </main>
+  <footer>© <span id="year"></span> FreeForAllNow</footer>
+  <script src="/public/app.js"></script>
+</body></html>

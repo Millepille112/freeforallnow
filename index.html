@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="FreeForAllNow – upptäck och hitta innehåll.">
+  <meta name="description" content="FreeForAllNow – upptäck, sök och dela idéer.">
   <title>FreeForAllNow</title>
   <link rel="stylesheet" href="./public/styles.css">
 </head>
@@ -14,9 +14,9 @@
   </header>
   <main>
     <section class="hero">
-      <p class="eyebrow">freeforallnow din öppna mötes plats</p>
+      <p class="eyebrow">DIN ÖPPNA MÖTESPLATS</p>
       <h1>Hitta det du<br><span>letar efter.</span></h1>
-      <p class="intro">Sök, upptäck och utforska på ett enkelt ställe.</p>
+      <p class="intro">Sök bland idéer, upptäck nya saker och hjälp oss bygga FreeForAllNow.</p>
       <div class="searchbar">
         <input id="search" type="search" placeholder="Sök efter något..." aria-label="Sök">
         <button id="searchBtn">Sök</button>
@@ -35,11 +35,17 @@
       <p id="empty" class="empty" hidden>Inga resultat hittades. Prova ett annat sökord.</p>
     </section>
     <section id="profile" class="profile">
-      <div class="avatar">F</div><div><p class="eyebrow">DIN PLATS</p><h2>Din profil</h2>
-      <p>Profilfunktioner kan kopplas till ett säkert inloggningssystem senare.</p></div>
-      <span class="tag">Kommer snart</span>
+      <div class="avatar">F</div>
+      <div class="profile-copy">
+        <p class="eyebrow">VAR MED OCH BYGG</p>
+        <h2>Din plats på FreeForAllNow</h2>
+        <p>Du kan utforska sidan utan konto redan nu. Säker inloggning och privat chatt är inte aktiverade ännu.</p>
+        <a class="suggest-link" href="https://github.com/Millepille112/freeforallnow/issues/new?title=Id%C3%A9%20till%20FreeForAllNow" target="_blank" rel="noopener noreferrer">Föreslå en funktion ↗</a>
+      </div>
+      <span class="tag">Öppen beta</span>
     </section>
   </main>
   <footer>© <span id="year"></span> FreeForAllNow</footer>
   <script src="./public/app.js"></script>
-</body></html>
+</body>
+</html>

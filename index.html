@@ -52,6 +52,13 @@
           <button type="submit">Logga in</button>
         </form>
       </div>
+      <form id="verifyForm" class="form-card" hidden>
+        <h3>Verifiera din e-post</h3>
+        <p class="muted">Vi har skickat en sexsiffrig kod till din e-post. Skriv in den här för att aktivera kontot.</p>
+        <label>Verifieringskod<input id="verifyCode" required inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="123456"></label>
+        <button type="submit">Verifiera och logga in</button>
+        <button id="resendCode" class="secondary" type="button">Skicka en ny kod</button>
+      </form>
       <div id="signedIn" class="signed-in" hidden>
         <div><p class="eyebrow">INLOGGAD</p><h3 id="welcomeName">Hej!</h3><p class="muted">Du kan nu skriva i communityn.</p></div>
         <form id="profileForm" class="profile-edit">

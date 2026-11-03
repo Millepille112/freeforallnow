@@ -9,7 +9,7 @@ const items = [
 ];
 const $ = (selector) => document.querySelector(selector);
 const search = $("#search"), category = $("#category"), results = $("#results"), empty = $("#empty");
-let currentUser = null, currentProfile = null, isAdmin = false, channel = null;
+let currentUser = null, currentProfile = null, isAdmin = false, channel = null, pendingSignupEmail = "";
 
 function renderItems() {
   const q = search.value.trim().toLowerCase();
@@ -51,7 +51,8 @@ async function refreshAuth() {
     const { data: adminFlag } = await db.rpc("is_site_admin");
     isAdmin = adminFlag === true;
   }
-  $("#authForms").hidden = !!user;
+  $("#authForms").hidden = !!user || !!pendingSignupEmail;
+  $("#verifyForm").hidden = !!user || !pendingSignupEmail;
   $("#signedIn").hidden = !user;
   $("#messageInput").disabled = !user;
   $("#sendBtn").disabled = !user;
@@ -68,18 +69,41 @@ async function refreshAuth() {
 }
 
 $("#signupForm").addEventListener("submit", async (event) => {
-  event.preventDefault(); setStatus("Skapar konto...");
+  event.preventDefault(); setStatus("Skickar verifieringskod...");
   const username = $("#signupName").value.trim().toLowerCase();
   const email = $("#signupEmail").value.trim();
   const password = $("#signupPassword").value;
   const { data, error } = await db.auth.signUp({ email, password, options: { data: { username, display_name: username } } });
   if (error) return setStatus(error.message, true);
   if (data.session) {
-    setStatus("Kontot är skapat! Du är inloggad.");
+    setStatus("Kontot är skapat och du är inloggad!");
     await refreshAuth();
   } else {
-    setStatus("Kontot är skapat. Kolla din e-post och bekräfta adressen innan du loggar in.");
+    pendingSignupEmail = email;
+    $("#authForms").hidden = true;
+    $("#verifyForm").hidden = false;
+    $("#verifyCode").focus();
+    setStatus("Koden har skickats. Öppna mejlet och skriv in de sex siffrorna här.");
   }
+});
+$("#verifyForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!pendingSignupEmail) return;
+  const token = $("#verifyCode").value.trim();
+  setStatus("Kontrollerar koden...");
+  const { error } = await db.auth.verifyOtp({ email: pendingSignupEmail, token, type: "signup" });
+  if (error) return setStatus("Koden stämmer inte eller har gått ut. Kontrollera mejlet och försök igen.", true);
+  pendingSignupEmail = "";
+  $("#verifyCode").value = "";
+  setStatus("E-postadressen är verifierad. Du är inloggad!");
+  await refreshAuth();
+});
+$("#resendCode").addEventListener("click", async () => {
+  if (!pendingSignupEmail) return;
+  setStatus("Skickar en ny kod...");
+  const { error } = await db.auth.resend({ type: "signup", email: pendingSignupEmail });
+  if (error) return setStatus(error.message, true);
+  setStatus("En ny verifieringskod har skickats till mejlen.");
 });
 $("#loginForm").addEventListener("submit", async (event) => {
   event.preventDefault(); setStatus("Loggar in...");
